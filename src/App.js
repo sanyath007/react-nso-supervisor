@@ -7,11 +7,11 @@ import Navbar from './components/Navbar';
 
 function App() {
   return (
-    <div className="App">
+    <div className="app">
       <Navbar />
 
       <main>
-        <div className="container">
+        <div className="container content">
           <Routes>
             <Route path='/' element={<Home />} />
             <Route path='/add' element={<Daily />} />
