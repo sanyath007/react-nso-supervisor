@@ -1,8 +1,11 @@
-import React from 'react'
+import React from 'react';
+import FilterTool from './FilterTool';
 
 const Daily = () => {
   return (
     <>
+      <FilterTool />
+
       <table className="table table-striped table-bordered">
         <thead>
           <tr>
