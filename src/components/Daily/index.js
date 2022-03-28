@@ -9,16 +9,16 @@ const Daily = () => {
       <table className="table table-striped table-bordered">
         <thead>
           <tr>
-            <th rowSpan={2}>จุดปฏิบัติงาน/หอผู้ป่วย</th>
-            <th rowSpan={2}>โทรศัพท์</th>
-            <th rowSpan={2}>จำนวนเตียง</th>
-            <th rowSpan={2}>กรณีขยายเตียง</th>
-            <th colSpan={6}>จำนวนผู้ป่วย</th>
-            <th rowSpan={2}>ห้องแยก</th>
-            <th colSpan={3}>เจ้าหน้าที่</th>
-            <th rowSpan={2}>Bird's</th>
-            <th rowSpan={2}>Ventilator</th>
-            <th rowSpan={2}>หมายเหตุ</th>
+            <th rowSpan={2} style={{ width: '10%', textAlign: 'center' }}>จุดปฏิบัติงาน/หอผู้ป่วย</th>
+            <th rowSpan={2} style={{ width: '8%', textAlign: 'center' }}>โทรศัพท์</th>
+            <th rowSpan={2} style={{ width: '5%', textAlign: 'center' }}>จำนวนเตียง</th>
+            <th rowSpan={2} style={{ width: '5%', textAlign: 'center' }}>กรณีขยายเตียง</th>
+            <th colSpan={6} style={{ textAlign: 'center' }}>จำนวนผู้ป่วย</th>
+            <th rowSpan={2} style={{ width: '5%', textAlign: 'center' }}>ห้องแยก</th>
+            <th colSpan={3} style={{ textAlign: 'center' }}>เจ้าหน้าที่</th>
+            <th rowSpan={2} style={{ width: '5%', textAlign: 'center' }}>Bird's</th>
+            <th rowSpan={2} style={{ width: '5%', textAlign: 'center' }}>Ventilator</th>
+            <th rowSpan={2} style={{ textAlign: 'center' }}>หมายเหตุ</th>
           </tr>
           <tr>
             <th>ผู้ใหญ่</th>
