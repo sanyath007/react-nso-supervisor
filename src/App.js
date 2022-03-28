@@ -3,6 +3,7 @@ import './App.css';
 import Footer from './components/Footer';
 import Home from './components/Home';
 import Daily from './components/Daily';
+import FormDaily from './components/Daily/FormDaily';
 import Navbar from './components/Navbar';
 
 function App() {
@@ -14,7 +15,8 @@ function App() {
         <div className="container content">
           <Routes>
             <Route path='/' element={<Home />} />
-            <Route path='/add' element={<Daily />} />
+            <Route path='/daily' element={<Daily />} />
+            <Route path='/add' element={<FormDaily />} />
           </Routes>
         </div>
       </main>
