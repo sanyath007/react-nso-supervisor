@@ -18,5 +18,6 @@ main {
 }
 
 main .content {
+  margin: 10px auto;
   border: 1px solid red;
 }

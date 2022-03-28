@@ -12,12 +12,14 @@ function App() {
       <Navbar />
 
       <main>
-        <div className="container content">
-          <Routes>
-            <Route path='/' element={<Home />} />
-            <Route path='/daily' element={<Daily />} />
-            <Route path='/add' element={<FormDaily />} />
-          </Routes>
+        <div className="container">
+          <div class="content">
+            <Routes>
+              <Route path='/' element={<Home />} />
+              <Route path='/daily' element={<Daily />} />
+              <Route path='/add' element={<FormDaily />} />
+            </Routes>
+          </div>
         </div>
       </main>
 
