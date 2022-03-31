@@ -16,9 +16,16 @@ const Navbar = () => {
         <div className="collapse navbar-collapse" id="navbarNavDropdown">
           <ul className="navbar-nav">
             <li className="nav-item">
-              <Link className="nav-link active" aria-current="page" to="/">Home</Link>
+              <Link className="nav-link active" aria-current="page" to="/">
+                หน้าหลัก
+              </Link>
             </li>
-            <li className="nav-item dropdown">
+            <li className="nav-item">
+              <Link className="nav-link active" aria-current="page" to="/daily">
+                สรุปยอดผู้รับบริการประจำวัน
+              </Link>
+            </li>
+            {/* <li className="nav-item dropdown">
               <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 ประจำวัน
               </a>
@@ -26,7 +33,7 @@ const Navbar = () => {
                 <li><Link className="dropdown-item" to="daily">สรุปยอดผู้รับบริการ</Link></li>
                 <li><Link className="dropdown-item" to="add">แบบบันทึก</Link></li>
               </ul>
-            </li>
+            </li> */}
           </ul>
         </div>
       </div>
