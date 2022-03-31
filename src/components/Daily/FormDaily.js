@@ -11,18 +11,18 @@ const FormDaily = () => {
             inspect_date: new Date(),
             period: '',
             office: '',
-            add_beds: '',
             adult: '',
             ped: '',
             nicu: '',
             snb: '',
             nb: '',
-            isolate: '',
             rn: '',
             emt: '',
-            pn_na: '',
-            birds: '',
-            ventilator: '',
+            pnna: '',
+            adds: '',
+            isolated: '',
+            on_birds: '',
+            on_ventilator: '',
             remark: ''
           }}
         >
@@ -139,8 +139,8 @@ const FormDaily = () => {
                     />
                     <input
                       type="text"
-                      name="pn_na"
-                      value={formik.values.pn_na}
+                      name="pnna"
+                      value={formik.values.pnna}
                       onChange={formik.handleChange}
                       className="form-control"
                       placeholder="PN/NA"
@@ -151,8 +151,8 @@ const FormDaily = () => {
                   <label for="">ห้องแยก</label>
                   <input
                     type="text"
-                    name="isolate"
-                    value={formik.values.isolate}
+                    name="isolated"
+                    value={formik.values.isolated}
                     onChange={formik.handleChange}
                     className="form-control"
                   />
@@ -161,8 +161,8 @@ const FormDaily = () => {
                   <label for="">Bird's</label>
                   <input
                     type="text"
-                    name="birds"
-                    value={formik.values.birds}
+                    name="on_birds"
+                    value={formik.values.on_birds}
                     onChange={formik.handleChange}
                     className="form-control"
                   />
@@ -171,8 +171,8 @@ const FormDaily = () => {
                   <label for="">Ventilator</label>
                   <input
                     type="text"
-                    name="ventilator"
-                    value={formik.values.ventilator}
+                    name="on_ventilator"
+                    value={formik.values.on_ventilator}
                     onChange={formik.handleChange}
                     className="form-control"
                   />
