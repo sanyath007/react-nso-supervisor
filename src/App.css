@@ -13,6 +13,7 @@
 }
 
 main {
+  background: #f4f6f9;
   min-height: calc(100vh - 90px);
   border: 1px solid black;
 }
