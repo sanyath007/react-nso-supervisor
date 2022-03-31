@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Form, Formik } from 'formik';
 import * as Yup from 'yup';
 import api from '../../api'
-import moment from 'moment';
 
 const inspectionSchema = Yup.object().shape({
   inspect_date: Yup.string().required('Inspect date is required!'),
@@ -35,14 +34,14 @@ const FormDaily = () => {
             inspect_date: '',
             period: '',
             office: '',
-            adult: '',
-            ped: '',
-            nicu: '',
-            snb: '',
-            nb: '',
-            rn: '',
-            emt: '',
-            pnna: '',
+            patient_adult: '',
+            patient_ped: '',
+            patient_nicu: '',
+            patient_snb: '',
+            patient_nb: '',
+            officer_rn: '',
+            officer_emt: '',
+            officer_pnna: '',
             adds: '',
             isolated: '',
             on_birds: '',
@@ -131,40 +130,40 @@ const FormDaily = () => {
                     <div style={{ display: 'flex' }}>
                       <input
                         type="text"
-                        name="adult"
-                        value={formik.values.adult}
+                        name="patient_adult"
+                        value={formik.values.patient_adult}
                         onChange={formik.handleChange}
                         className="form-control"
                         placeholder="ผู้ใหญ่"
                       />
                       <input
                         type="text"
-                        name="ped"
-                        value={formik.values.ped}
+                        name="patient_ped"
+                        value={formik.values.patient_ped}
                         onChange={formik.handleChange}
                         className="form-control"
                         placeholder="เด็กป่วย"
                         />
                       <input
                         type="text"
-                        name="nicu"
-                        value={formik.values.nicu}
+                        name="patient_nicu"
+                        value={formik.values.patient_nicu}
                         onChange={formik.handleChange}
                         className="form-control"
                         placeholder="NICU"
                       />
                       <input
                         type="text"
-                        name="snb"
-                        value={formik.values.snb}
+                        name="patient_snb"
+                        value={formik.values.patient_snb}
                         onChange={formik.handleChange}
                         className="form-control"
                         placeholder="Sick NB"
                       />
                       <input
                         type="text"
-                        name="nb"
-                        value={formik.values.nb}
+                        name="patient_nb"
+                        value={formik.values.patient_nb}
                         onChange={formik.handleChange}
                         className="form-control"
                         placeholder="NB"
@@ -176,24 +175,24 @@ const FormDaily = () => {
                     <div style={{ display: 'flex' }}>
                       <input
                         type="text"
-                        name="rn"
-                        value={formik.values.rn}
+                        name="officer_rn"
+                        value={formik.values.officer_rn}
                         onChange={formik.handleChange}
                         className="form-control"
                         placeholder="RN"
                       />
                       <input
                         type="text"
-                        name="emt"
-                        value={formik.values.emt}
+                        name="officer_emt"
+                        value={formik.values.officer_emt}
                         onChange={formik.handleChange}
                         className="form-control"
                         placeholder="EMT"
                       />
                       <input
                         type="text"
-                        name="pnna"
-                        value={formik.values.pnna}
+                        name="officer_pnna"
+                        value={formik.values.officer_pnna}
                         onChange={formik.handleChange}
                         className="form-control"
                         placeholder="PN/NA"
