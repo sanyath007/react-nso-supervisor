@@ -10,12 +10,12 @@ const Daily = () => {
       <FilterTool />
 
       <div className="card">
-        <div class="card-body">
+        <div className="card-body">
 
-          <div class="row mb-2">
-            <div class="col-md-12">
+          <div className="row mb-2">
+            <div className="col-md-12">
               <Link to="/add" className="btn btn-primary float-end">
-                <i class="uil uil-plus-circle"></i>
+                <i className="uil uil-plus-circle"></i>
                 บันทึกตรวจการ
               </Link>
             </div>
@@ -69,12 +69,12 @@ const Daily = () => {
                   <td style={{ textAlign: 'center' }}>16</td>
                   <td style={{ textAlign: 'center' }}>17</td>
                   <td style={{ textAlign: 'center' }}>
-                    <div class="btn-group">
+                    <div className="btn-group">
                       <Link to="/" className="btn btn-warning btn-sm mr-2">
-                        <i class="uil uil-edit"></i>
+                        <i className="uil uil-edit"></i>
                       </Link>
                       <Link to="/" className="btn btn-danger btn-sm">
-                        <i class="uil uil-trash-alt"></i>
+                        <i className="uil uil-trash-alt"></i>
                       </Link>
                     </div>
                   </td>

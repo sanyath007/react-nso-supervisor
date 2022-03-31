@@ -1,14 +1,38 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Form, Formik } from 'formik';
 import * as Yup from 'yup';
+import api from '../../api'
+import moment from 'moment';
+
+const inspectionSchema = Yup.object().shape({
+  inspect_date: Yup.string().required('Inspect date is required!'),
+  office: Yup.string().required('Office is required!'),
+  period: Yup.string().required('Period is required!'),
+});
 
 const FormDaily = () => {
+  const [offices, setOffices] = useState([]);
+
+  const fetchOffices = async () => {
+    const res = await api.get('/offices');
+
+    setOffices(res.data);
+  };
+
+  const handleSubmit = (values, props) => {
+    console.log(values, props);
+  };
+
+  useEffect(() => {
+    fetchOffices();
+  }, []);
+
   return (
     <div className="card">
       <div className="card-body">
         <Formik
           initialValues={{
-            inspect_date: new Date(),
+            inspect_date: '',
             period: '',
             office: '',
             adult: '',
@@ -23,184 +47,214 @@ const FormDaily = () => {
             isolated: '',
             on_birds: '',
             on_ventilator: '',
-            remark: ''
+            remark: '',
+            incidence: '',
+            handling: ''
           }}
+          validationSchema={inspectionSchema}
+          onSubmit={handleSubmit}
         >
-          {(formik) => (
-            <Form>
-              <div class="row">
-                <div class="col-md-6 mb-3">
-                  <label for="">วันที่</label>
-                  <input
-                    type="date"
-                    name="inspect_date"
-                    value={formik.values.inspect_date}
-                    onChange={formik.handleChange}
-                    className="form-control"
-                  />
-                </div>
-                <div class="col-md-6 mb-3">
-                  <label for="">ช่วงเวลา</label>
-                  <select
-                    name="period"
-                    value={formik.values.period}
-                    onChange={formik.handleChange}
-                    className="form-control"
-                  >
-                    <option value="">-- กรุณาเลือก --</option>
-                    <option value="">เช้า 08.00 - 16.00 น.</option>
-                    <option value="">บ่าย 16.00 - 24.00 น.</option>
-                  </select>
-                </div>
-                <div class="col-md-6 mb-3">
-                  <label for="">จุดปฏิบัติงาน/หอผู้ป่วย</label>
-                  <select
-                    name="office"
-                    value={formik.values.period}
-                    onChange={formik.handleChange}
-                    className="form-control"
-                  >
-                    <option value="">-- กรุณาเลือก --</option>
-                  </select>
-                </div>
-                <div class="col-md-6 mb-3">
-                  <label for="">เตียงขยาย (กรณีขยายเตียง)</label>
-                  <input
-                    type="text"
-                    name="add_beds"
-                    value={formik.values.add_beds}
-                    onChange={formik.handleChange}
-                    className="form-control"
-                  />
-                </div>
-                <div class="col-md-6 mb-3">
-                  <label for="">จำนวนผู้ป่วย</label>
-                  <div style={{ display: 'flex' }}>
+          {(formik) => {
+            console.log(formik.errors);
+            return (
+              <Form>
+                <div className="row">
+                  <div className="col-md-6 mb-3">
+                    <label htmlFor="">วันที่</label>
                     <input
-                      type="text"
-                      name="adult"
-                      value={formik.values.adult}
+                      type="date"
+                      name="inspect_date"
+                      value={formik.values.inspect_date}
                       onChange={formik.handleChange}
-                      className="form-control"
-                      placeholder="ผู้ใหญ่"
+                      className={`form-control ${formik.errors.inspect_date && formik.touched.inspect_date ? 'is-invalid' : ''}`}
                     />
+                    {formik.errors.name && formik.touched.name ? (
+                      <div className="invalid-feedback">
+                        {formik.errors.inspect_date}
+                      </div>
+                    ) : null}
+                  </div>
+                  <div className="col-md-6 mb-3">
+                    <label htmlFor="">ช่วงเวลา</label>
+                    <select
+                      name="period"
+                      value={formik.values.period}
+                      onChange={formik.handleChange}
+                      className={`form-control ${formik.errors.period && formik.touched.period ? 'is-invalid' : ''}`}
+                    >
+                      <option value="">-- กรุณาเลือก --</option>
+                      <option value="1">เช้า 08.00 - 16.00 น.</option>
+                      <option value="2">บ่าย 16.00 - 24.00 น.</option>
+                    </select>
+                    {formik.errors.period && formik.touched.period ? (
+                      <div className="invalid-feedback">
+                        {formik.errors.period}
+                      </div>
+                    ) : null}
+                  </div>
+                  <div className="col-md-6 mb-3">
+                    <label htmlFor="">จุดปฏิบัติงาน/หอผู้ป่วย</label>
+                    <select
+                      name="office"
+                      value={formik.values.office}
+                      onChange={formik.handleChange}
+                      className={`form-control ${formik.errors.office && formik.touched.office ? 'is-invalid' : ''}`}
+                    >
+                      <option value="">-- กรุณาเลือก --</option>
+                      {offices && offices.map((office) => {
+                        return (
+                          <option key={office.id} value={office.id}>
+                            {office.name}
+                          </option>
+                        );
+                      })}
+                    </select>
+                    {formik.errors.office && formik.touched.office ? (
+                      <div className="invalid-feedback">
+                        {formik.errors.office}
+                      </div>
+                    ) : null}
+                    
+                  </div>
+                  <div className="col-md-6 mb-3">
+                    <label htmlFor="">เตียงขยาย (กรณีขยายเตียง)</label>
                     <input
                       type="text"
-                      name="ped"
-                      value={formik.values.ped}
+                      name="adds"
+                      value={formik.values.adds}
                       onChange={formik.handleChange}
                       className="form-control"
-                      placeholder="เด็กป่วย"
+                    />
+                  </div>
+                  <div className="col-md-6 mb-3">
+                    <label htmlFor="">จำนวนผู้ป่วย</label>
+                    <div style={{ display: 'flex' }}>
+                      <input
+                        type="text"
+                        name="adult"
+                        value={formik.values.adult}
+                        onChange={formik.handleChange}
+                        className="form-control"
+                        placeholder="ผู้ใหญ่"
                       />
+                      <input
+                        type="text"
+                        name="ped"
+                        value={formik.values.ped}
+                        onChange={formik.handleChange}
+                        className="form-control"
+                        placeholder="เด็กป่วย"
+                        />
+                      <input
+                        type="text"
+                        name="nicu"
+                        value={formik.values.nicu}
+                        onChange={formik.handleChange}
+                        className="form-control"
+                        placeholder="NICU"
+                      />
+                      <input
+                        type="text"
+                        name="snb"
+                        value={formik.values.snb}
+                        onChange={formik.handleChange}
+                        className="form-control"
+                        placeholder="Sick NB"
+                      />
+                      <input
+                        type="text"
+                        name="nb"
+                        value={formik.values.nb}
+                        onChange={formik.handleChange}
+                        className="form-control"
+                        placeholder="NB"
+                      />
+                    </div>
+                  </div>
+                  <div className="col-md-6 mb-3">
+                    <label htmlFor="">เจ้าหน้าที่</label>
+                    <div style={{ display: 'flex' }}>
+                      <input
+                        type="text"
+                        name="rn"
+                        value={formik.values.rn}
+                        onChange={formik.handleChange}
+                        className="form-control"
+                        placeholder="RN"
+                      />
+                      <input
+                        type="text"
+                        name="emt"
+                        value={formik.values.emt}
+                        onChange={formik.handleChange}
+                        className="form-control"
+                        placeholder="EMT"
+                      />
+                      <input
+                        type="text"
+                        name="pnna"
+                        value={formik.values.pnna}
+                        onChange={formik.handleChange}
+                        className="form-control"
+                        placeholder="PN/NA"
+                      />
+                    </div>
+                  </div>
+                  <div className="col-md-6 mb-3">
+                    <label htmlFor="">ห้องแยก</label>
                     <input
                       type="text"
-                      name="nicu"
-                      value={formik.values.nicu}
+                      name="isolated"
+                      value={formik.values.isolated}
                       onChange={formik.handleChange}
                       className="form-control"
-                      placeholder="NICU"
-                    />
-                    <input
-                      type="text"
-                      name="snb"
-                      value={formik.values.snb}
-                      onChange={formik.handleChange}
-                      className="form-control"
-                      placeholder="Sick NB"
-                    />
-                    <input
-                      type="text"
-                      name="nb"
-                      value={formik.values.nb}
-                      onChange={formik.handleChange}
-                      className="form-control"
-                      placeholder="NB"
                     />
                   </div>
-                </div>
-                <div class="col-md-6 mb-3">
-                  <label for="">เจ้าหน้าที่</label>
-                  <div style={{ display: 'flex' }}>
+                  <div className="col-md-6 mb-3">
+                    <label htmlFor="">Bird's</label>
                     <input
                       type="text"
-                      name="rn"
-                      value={formik.values.rn}
+                      name="on_birds"
+                      value={formik.values.on_birds}
                       onChange={formik.handleChange}
                       className="form-control"
-                      placeholder="RN"
-                    />
-                    <input
-                      type="text"
-                      name="emt"
-                      value={formik.values.emt}
-                      onChange={formik.handleChange}
-                      className="form-control"
-                      placeholder="EMT"
-                    />
-                    <input
-                      type="text"
-                      name="pnna"
-                      value={formik.values.pnna}
-                      onChange={formik.handleChange}
-                      className="form-control"
-                      placeholder="PN/NA"
                     />
                   </div>
+                  <div className="col-md-6 mb-3">
+                    <label htmlFor="">Ventilator</label>
+                    <input
+                      type="text"
+                      name="on_ventilator"
+                      value={formik.values.on_ventilator}
+                      onChange={formik.handleChange}
+                      className="form-control"
+                    />
+                  </div>
+                  <div className="col-md-6 mb-3">
+                    <label htmlFor="">หมายเหตุ</label>
+                    <input
+                      type="text"
+                      name="remark"
+                      value={formik.values.remark}
+                      onChange={formik.handleChange}
+                      className="form-control"
+                    />
+                  </div>
+                  <div className="col-md-6 mb-3">
+                    <label htmlFor="">เหตุการณ์สำคัญ</label>
+                    <textarea type="text" className="form-control"></textarea>
+                  </div>
+                  <div className="col-md-6 mb-3">
+                    <label htmlFor="">การแก้ไขเบื้องต้น</label>
+                    <textarea type="text" className="form-control"></textarea>
+                  </div>
+                  <div className="col-md-12 p-3 d-grid gap-2">
+                    <button className="btn btn-primary">บันทึก</button>
+                  </div>
                 </div>
-                <div class="col-md-6 mb-3">
-                  <label for="">ห้องแยก</label>
-                  <input
-                    type="text"
-                    name="isolated"
-                    value={formik.values.isolated}
-                    onChange={formik.handleChange}
-                    className="form-control"
-                  />
-                </div>
-                <div class="col-md-6 mb-3">
-                  <label for="">Bird's</label>
-                  <input
-                    type="text"
-                    name="on_birds"
-                    value={formik.values.on_birds}
-                    onChange={formik.handleChange}
-                    className="form-control"
-                  />
-                </div>
-                <div class="col-md-6 mb-3">
-                  <label for="">Ventilator</label>
-                  <input
-                    type="text"
-                    name="on_ventilator"
-                    value={formik.values.on_ventilator}
-                    onChange={formik.handleChange}
-                    className="form-control"
-                  />
-                </div>
-                <div class="col-md-6 mb-3">
-                  <label for="">หมายเหตุ</label>
-                  <input
-                    type="text"
-                    name="remark"
-                    value={formik.values.remark}
-                    onChange={formik.handleChange}
-                    className="form-control"
-                  />
-                </div>
-                <div class="col-md-6 mb-3">
-                  <label for="">เหตุการณ์สำคัญ</label>
-                  <textarea type="text" className="form-control"></textarea>
-                </div>
-                <div class="col-md-6 mb-3">
-                  <label for="">การแก้ไขเบื้องต้น</label>
-                  <textarea type="text" className="form-control"></textarea>
-                </div>
-                <div class="col-md-12 p-3 d-grid gap-2">
-                  <button className="btn btn-primary">บันทึก</button>
-                </div>
-              </div>
-            </Form>
-          )}
+              </Form>
+            );
+          }}
         </Formik>
       </div>
     </div>

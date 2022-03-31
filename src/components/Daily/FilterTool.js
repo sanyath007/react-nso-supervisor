@@ -3,15 +3,15 @@ import React from 'react'
 const FilterTool = () => {
   return (
     <div className="card mb-2">
-      <div class="card-body">
+      <div className="card-body">
         <h3>FilterTool</h3>
-        <div class="row">
-          <div class="col-md-6 form-group">
-            <label for="">ประจำวัน</label>
+        <div className="row">
+          <div className="col-md-6 form-group">
+            <label htmlFor="">ประจำวัน</label>
             <input type="date" className="form-control" />
           </div>
-          <div class="col-md-6 form-group">
-            <label for="">ช่วงเวลา</label>
+          <div className="col-md-6 form-group">
+            <label htmlFor="">ช่วงเวลา</label>
             <select name="" className="form-control">
               <option value="">-- ทั้งหมด --</option>
               <option value="">เช้า 08.00 - 16.00 น.</option>
