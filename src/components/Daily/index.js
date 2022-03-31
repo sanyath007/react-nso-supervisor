@@ -16,12 +16,13 @@ const Daily = () => {
   }
 
   const handleFilter = (date, period) => {
-    console.log(date, period);
+    setSelectedDate(date);
+    setSelectedPeriod(period);
   };
 
   useEffect(() => {
     fetchInspections();
-  }, []);
+  }, [selectedDate, selectedPeriod]);
 
   return (
     <>
