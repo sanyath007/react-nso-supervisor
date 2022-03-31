@@ -18,8 +18,10 @@ const FormDaily = () => {
     setOffices(res.data);
   };
 
-  const handleSubmit = (values, props) => {
+  const handleSubmit = async (values, props) => {
     console.log(values, props);
+    const res = await api.post('/inspections', values);
+    console.log(res);
   };
 
   useEffect(() => {
@@ -48,7 +50,8 @@ const FormDaily = () => {
             on_ventilator: '',
             remark: '',
             incidence: '',
-            handling: ''
+            handling: '',
+            user: ''
           }}
           validationSchema={inspectionSchema}
           onSubmit={handleSubmit}
@@ -57,6 +60,12 @@ const FormDaily = () => {
             console.log(formik.errors);
             return (
               <Form>
+                <input
+                  type="hidden"
+                  name="user"
+                  value={formik.values.user}
+                  onChange={formik.handleChange}
+                />
                 <div className="row">
                   <div className="col-md-6 mb-3">
                     <label htmlFor="">วันที่</label>
@@ -183,19 +192,19 @@ const FormDaily = () => {
                       />
                       <input
                         type="text"
-                        name="officer_emt"
-                        value={formik.values.officer_emt}
-                        onChange={formik.handleChange}
-                        className="form-control"
-                        placeholder="EMT"
-                      />
-                      <input
-                        type="text"
                         name="officer_pnna"
                         value={formik.values.officer_pnna}
                         onChange={formik.handleChange}
                         className="form-control"
                         placeholder="PN/NA"
+                      />
+                      <input
+                        type="text"
+                        name="officer_emt"
+                        value={formik.values.officer_emt}
+                        onChange={formik.handleChange}
+                        className="form-control"
+                        placeholder="EMT"
                       />
                     </div>
                   </div>

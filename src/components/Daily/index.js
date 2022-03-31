@@ -50,7 +50,7 @@ const Daily = () => {
             </thead>
             <tbody>
               {daily && daily.map((dl) => (
-                <tr>
+                <tr key={dl.id}>
                   <td>{dl.name}</td>
                   <td style={{ textAlign: 'center' }}>{dl.phone}</td>
                   <td style={{ textAlign: 'center' }}>{dl.beds}</td>
