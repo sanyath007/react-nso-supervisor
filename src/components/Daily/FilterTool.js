@@ -1,13 +1,24 @@
-import React, { useState } from 'react'
+import moment from 'moment';
+import React, { useState } from 'react';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 const FilterTool = ({ onSelected }) => {
-  const [values, setValues] = useState({ date: '', period: '' });
+  const [values, setValues] = useState({ date: new Date(), period: '' });
 
   const handleChange = (e) => {
     const newValues = { ...values, [e.target.name]: e.target.value };
     setValues(newValues)
 
-    onSelected(newValues.date, newValues.period);
+    
+    onSelected(moment(newValues.date).format('YYYY-MM-DD'), newValues.period);
+  };
+  
+  const dateChange = (date) => {
+    const newValues = { ...values, date };
+    setValues(newValues)
+
+    onSelected(moment(newValues.date).format('YYYY-MM-DD'), newValues.period);
   };
 
   return (
@@ -17,11 +28,12 @@ const FilterTool = ({ onSelected }) => {
         <div className="row">
           <div className="col-md-6 form-group">
             <label htmlFor="">ประจำวัน</label>
-            <input
-              type="date"
+            <DatePicker
               name="date"
+              selected={values.date}
+              onChange={(e) => dateChange(e)}
+              dateFormat="dd/MM/yyyy"
               className="form-control"
-              onChange={(e) => handleChange(e)}
             />
           </div>
           <div className="col-md-6 form-group">
