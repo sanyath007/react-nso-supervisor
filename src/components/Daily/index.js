@@ -43,8 +43,7 @@ const Daily = () => {
           <table className="table table-striped table-bordered">
             <thead>
               <tr>
-                <th rowSpan={2} style={{ width: '10%', textAlign: 'center' }}>จุดปฏิบัติงาน/หอผู้ป่วย</th>
-                <th rowSpan={2} style={{ width: '5%', textAlign: 'center' }}>โทรศัพท์</th>
+                <th rowSpan={2} style={{ textAlign: 'center' }}>จุดปฏิบัติงาน/หอผู้ป่วย</th>
                 <th rowSpan={2} style={{ width: '5%', textAlign: 'center' }}>จำนวนเตียง</th>
                 <th rowSpan={2} style={{ width: '5%', textAlign: 'center' }}>กรณีขยายเตียง</th>
                 <th colSpan={6} style={{ textAlign: 'center' }}>จำนวนผู้ป่วย</th>
@@ -52,7 +51,7 @@ const Daily = () => {
                 <th colSpan={3} style={{ textAlign: 'center' }}>เจ้าหน้าที่</th>
                 <th rowSpan={2} style={{ width: '5%', textAlign: 'center' }}>Bird's</th>
                 <th rowSpan={2} style={{ width: '5%', textAlign: 'center' }}>Ventilator</th>
-                <th rowSpan={2} style={{ textAlign: 'center' }}>หมายเหตุ</th>
+                <th rowSpan={2} style={{ width: '5%', textAlign: 'center' }}>เพิ่มเติม</th>
                 <th rowSpan={2} style={{ width: '8%', textAlign: 'center' }}>Actions</th>
               </tr>
               <tr>
@@ -70,8 +69,15 @@ const Daily = () => {
             <tbody>
               {inspections && inspections.map((inspect) => (
                 <tr key={inspect.id}>
-                  <td>{inspect.office?.name}</td>
-                  <td style={{ textAlign: 'center' }}>{inspect.office?.tel}</td>
+                  <td>
+                    {inspect.office?.name}
+                    <p className="text-muted" style={{ fontSize: '14px', margin: '0' }}>
+                      {inspect.office?.building} ชั้น {inspect.office?.floor}
+                    </p>
+                    <p className="text-muted" style={{ fontSize: '14px', margin: '0' }}>
+                      โทร. {inspect.office?.tel}
+                    </p>
+                  </td>
                   <td style={{ textAlign: 'center' }}>{inspect.office?.beds}</td>
                   <td style={{ textAlign: 'center' }}>{inspect.adds}</td>
                   <td style={{ textAlign: 'center' }}>{inspect.patient_adult}</td>
@@ -86,7 +92,11 @@ const Daily = () => {
                   <td style={{ textAlign: 'center' }}>{inspect.officer_pnna}</td>
                   <td style={{ textAlign: 'center' }}>{inspect.on_birds}</td>
                   <td style={{ textAlign: 'center' }}>{inspect.on_ventilator}</td>
-                  <td style={{ textAlign: 'center' }}>{inspect.remark}</td>
+                  <td style={{ textAlign: 'center' }}>
+                    <button className="btn btn-secondary btn-sm">
+                      <i class="uil uil-apps"></i>
+                    </button>
+                  </td>
                   <td style={{ textAlign: 'center' }}>
                     <div className="btn-group">
                       <Link to="/" className="btn btn-warning btn-sm mr-2">

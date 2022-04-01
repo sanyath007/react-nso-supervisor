@@ -76,7 +76,7 @@ const FormDaily = () => {
                       onChange={formik.handleChange}
                       className={`form-control ${formik.errors.inspect_date && formik.touched.inspect_date ? 'is-invalid' : ''}`}
                     />
-                    {formik.errors.name && formik.touched.name ? (
+                    {formik.errors.inspect_date && formik.touched.inspect_date ? (
                       <div className="invalid-feedback">
                         {formik.errors.inspect_date}
                       </div>
