@@ -4,20 +4,19 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
 const FilterTool = ({ onSelected }) => {
-  const [values, setValues] = useState({ date: new Date(), period: '' });
+  const [values, setValues] = useState({ date: new Date(), period: '1' });
 
   const handleChange = (e) => {
     const newValues = { ...values, [e.target.name]: e.target.value };
-    setValues(newValues)
 
-    
+    setValues(newValues)
     onSelected(moment(newValues.date).format('YYYY-MM-DD'), newValues.period);
   };
   
   const dateChange = (date) => {
     const newValues = { ...values, date };
-    setValues(newValues)
 
+    setValues(newValues)
     onSelected(moment(newValues.date).format('YYYY-MM-DD'), newValues.period);
   };
 
