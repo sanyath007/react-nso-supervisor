@@ -3,11 +3,13 @@ import { Link } from 'react-router-dom';
 import FilterTool from './FilterTool';
 import api from '../../api';
 import moment from 'moment';
+import Additions from './Additions';
 
 const Daily = () => {
   const [inspections, setInspections] = useState([]);
   const [selectedDate, setSelectedDate] = useState(moment().format('YYYY-MM-DD'));
   const [selectedPeriod, setSelectedPeriod] = useState('1');
+  const [openAdds, setOpenAdds] = useState(false);
 
   const fetchInspections = async () => {
     const res = await api.get(`/inspections?date=${selectedDate}&period=${selectedPeriod}`);
@@ -27,6 +29,8 @@ const Daily = () => {
   return (
     <>
       <FilterTool onSelected={handleFilter} />
+
+      <Additions show={openAdds} setShow={setOpenAdds} />
 
       <div className="card">
         <div className="card-body">
@@ -93,8 +97,8 @@ const Daily = () => {
                   <td style={{ textAlign: 'center' }}>{inspect.on_birds}</td>
                   <td style={{ textAlign: 'center' }}>{inspect.on_ventilator}</td>
                   <td style={{ textAlign: 'center' }}>
-                    <button className="btn btn-secondary btn-sm">
-                      <i class="uil uil-apps"></i>
+                    <button className="btn btn-secondary btn-sm" onClick={() => setOpenAdds(true)}>
+                      <i className="uil uil-apps"></i>
                     </button>
                   </td>
                   <td style={{ textAlign: 'center' }}>
